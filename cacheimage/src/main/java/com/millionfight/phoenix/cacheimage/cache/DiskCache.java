@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Administrator on 2018/4/4 0004.
@@ -27,6 +29,10 @@ public class DiskCache implements ImageCache {
     private DiskLruCache mDiskLruCache;
     private static final String DISK_LRU_CACHE_UNIQUE = "Image";
     private static final int MAX_DISK_LRU_CACHE_SIZE = 10 * 1024 * 1024;
+
+    ExecutorService mExecutorsService = Executors.newFixedThreadPool(
+            Runtime.getRuntime().availableProcessors()
+    );
 
     public DiskCache(Context context) {
         //初始化DiskLruCache
@@ -97,14 +103,14 @@ public class DiskCache implements ImageCache {
     @Override
     public void putBitmap(String url, final Bitmap bitmap) {
         final String bitmapUrlMD5 = Md5Util.getMD5String(url);
-        new Thread(
+        mExecutorsService.submit(
                 new Runnable() {
                     @Override
                     public void run() {
                         writeFileToDisk(mDiskLruCache, bitmap, bitmapUrlMD5);
                     }
                 }
-        ).start();
+        );
     }
 
     private static void writeFileToDisk(
