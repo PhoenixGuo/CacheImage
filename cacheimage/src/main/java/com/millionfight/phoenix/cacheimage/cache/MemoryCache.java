@@ -3,8 +3,6 @@ package com.millionfight.phoenix.cacheimage.cache;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
-import com.millionfight.phoenix.cacheimage.util.Md5Util;
-
 /**
  * Created by Administrator on 2018/4/4 0004.
  * Copyright (C) 2016 MillionFight
@@ -33,14 +31,12 @@ public class MemoryCache implements ImageCache {
 
     @Override
     public Bitmap getBitmap(String url) {
-        String bitmapUrlMD5 = Md5Util.getMD5String(url);
-        return mLruCache.get(bitmapUrlMD5);
+        return mLruCache.get(url);
     }
 
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
-        String bitmapUrlMD5 = Md5Util.getMD5String(url);
-        mLruCache.put(bitmapUrlMD5, bitmap);
+        mLruCache.put(url, bitmap);
     }
 
 }
