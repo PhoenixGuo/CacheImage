@@ -2,6 +2,7 @@ package com.millionfight.phoenix.cacheimage.cache;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 /**
  * Created by Administrator on 2018/4/4 0004.
@@ -33,6 +34,9 @@ public class MemoryAndDiskCache implements ImageCache {
 
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
+        if (TextUtils.isEmpty(url) || bitmap == null) {
+            return;
+        }
         mMemoryCache.putBitmap(url, bitmap);
         mDiskCache.putBitmap(url, bitmap);
     }

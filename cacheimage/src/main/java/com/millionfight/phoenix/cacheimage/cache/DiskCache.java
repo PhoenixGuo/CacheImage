@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import com.millionfight.phoenix.cacheimage.util.DiskLruCache;
 import com.millionfight.phoenix.cacheimage.util.Md5Util;
@@ -102,6 +103,9 @@ public class DiskCache implements ImageCache {
 
     @Override
     public void putBitmap(String url, final Bitmap bitmap) {
+        if (TextUtils.isEmpty(url) || bitmap == null) {
+            return;
+        }
         final String bitmapUrlMD5 = Md5Util.getMD5String(url);
         mExecutorsService.submit(
                 new Runnable() {

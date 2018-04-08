@@ -1,6 +1,7 @@
 package com.millionfight.phoenix.cacheimage.cache;
 
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.LruCache;
 
 /**
@@ -36,6 +37,9 @@ public class MemoryCache implements ImageCache {
 
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
+        if (TextUtils.isEmpty(url) || bitmap == null) {
+            return;
+        }
         mLruCache.put(url, bitmap);
     }
 
