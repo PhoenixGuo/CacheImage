@@ -18,3 +18,10 @@ ImageLoader imageLoader = new ImageLoader(
 String url = "";
 imageLoader.displayImage(url, iv, R.mipmap.ic_launcher);
 ```
+### 2、运行流程
+[Image](https://github.com/PhoenixGuo/CacheImage/blob/master/images/20180403204511696.jpg)
+### 3、效果
+在有网的时候，加载一张网络图片：  
+[Image](https://github.com/PhoenixGuo/CacheImage/blob/master/images/20180405020107765.gif)
+关闭程序、网络，打开显示缓存图片
+[Image](https://github.com/PhoenixGuo/CacheImage/blob/master/images/20180405023401910.gif)
